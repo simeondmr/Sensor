@@ -1,5 +1,3 @@
-use crate::sensors::sensor::SensorType::PHOTORESISTOR;
-
 pub struct Sens {
     pub pin: i8,
     s_type: SensorType

@@ -28,10 +28,10 @@ impl AnalogSensor {
 impl SensorFuncs for AnalogSensor {
     fn read(&mut self) -> Option<i16> {
         match self.sensor.pin {
-            0 => Some(block!(self.adc.read(&mut channel::DifferentialA0A1)).unwrap()),
-            1 => Some(block!(self.adc.read(&mut channel::DifferentialA0A1)).unwrap()),
-            2 => Some(block!(self.adc.read(&mut channel::DifferentialA0A1)).unwrap()),
-            3 => Some(block!(self.adc.read(&mut channel::DifferentialA0A1)).unwrap()),
+            0 => Some(block!(self.adc.read(&mut channel::SingleA0)).unwrap()),
+            1 => Some(block!(self.adc.read(&mut channel::SingleA1)).unwrap()),
+            2 => Some(block!(self.adc.read(&mut channel::SingleA2)).unwrap()),
+            3 => Some(block!(self.adc.read(&mut channel::SingleA3)).unwrap()),
             _ => { None }
         }
     }
