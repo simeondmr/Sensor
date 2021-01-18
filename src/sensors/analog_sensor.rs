@@ -1,7 +1,7 @@
 use crate::sensors::sensor::{Sens, SensorFuncs};
 use linux_embedded_hal::I2cdev;
 use nb::block;
-use ads1x1x::{channel, Ads1x1x, SlaveAddr};
+use ads1x1x::{channel, Ads1x1x, SlaveAddr, FullScaleRange};
 use ads1x1x::mode::OneShot;
 use ads1x1x::interface::I2cInterface;
 use ads1x1x::ic::{Ads1115, Resolution16Bit};
@@ -17,7 +17,8 @@ impl AnalogSensor {
     pub fn new(sensor: Sens) -> AnalogSensor {
         let dev = I2cdev::new("/dev/i2c-1").unwrap();
         let address = SlaveAddr::default();
-        let adc = Ads1x1x::new_ads1115(dev, address);
+        let mut adc = Ads1x1x::new_ads1115(dev, address);
+        adc.set_full_scale_range(FullScaleRange::Within4_096V).unwrap();
         AnalogSensor {
             sensor,
             adc
